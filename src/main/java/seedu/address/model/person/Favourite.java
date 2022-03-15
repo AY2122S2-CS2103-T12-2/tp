@@ -9,12 +9,13 @@ public class Favourite {
             "Favourite should be either true or false, and should not be blank.";
 
     /*
-     * The first character of the favourite status must not be a whitespace,
+     * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[^\\s].*";
 
     public final String value;
+
 
     /**
      * Constructs a {@code Favourite} status object.
@@ -32,11 +33,7 @@ public class Favourite {
      * @param isFavourite is the String representation provided.
      * @return the {@code Favourite} object that corresponds to the String provided.
      */
-    public static Favourite valueOf(String isFavourite) throws IllegalArgumentException {
-        if (!("true".equals(isFavourite) || "false".equals(isFavourite))) {
-            throw new IllegalArgumentException("Favourite can only be true or false.");
-        }
-
+    public static Favourite valueOf(String isFavourite) {
         return "true".equals(isFavourite)
                 ? IS_FAVOURITE
                 : NOT_FAVOURITE;
