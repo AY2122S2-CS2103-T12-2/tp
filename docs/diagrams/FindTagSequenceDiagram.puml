@@ -1,0 +1,78 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":FindTagCommandParser" as FindTagCommandParser LOGIC_COLOR
+participant "p:TagContainsKeywordPredicate" as TagContainsKeywordPredicate LOGIC_COLOR
+participant "f:FindTagCommand" as FindTagCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("findtag friends")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("findtag friends")
+activate AddressBookParser
+
+create FindTagCommandParser
+AddressBookParser -> FindTagCommandParser
+activate FindTagCommandParser
+
+FindTagCommandParser --> AddressBookParser
+deactivate FindTagCommandParser
+
+AddressBookParser -> FindTagCommandParser : parse("friends")
+activate FindTagCommandParser
+
+create TagContainsKeywordPredicate
+FindTagCommandParser -> TagContainsKeywordPredicate
+activate TagContainsKeywordPredicate
+
+TagContainsKeywordPredicate --> FindTagCommandParser : p
+deactivate TagContainsKeywordPredicate
+
+create FindTagCommand
+FindTagCommandParser -> FindTagCommand : p
+activate FindTagCommand
+
+FindTagCommand --> FindTagCommandParser : f
+deactivate FindTagCommand
+
+FindTagCommandParser --> AddressBookParser : f
+deactivate FindTagCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+FindTagCommandParser -[hidden]-> AddressBookParser
+destroy FindTagCommandParser
+
+AddressBookParser --> LogicManager : f
+deactivate AddressBookParser
+
+LogicManager -> FindTagCommand : execute()
+activate FindTagCommand
+
+FindTagCommand -> Model : updateFilteredPersonList()
+activate Model
+
+Model --> FindTagCommand
+deactivate Model
+
+create CommandResult
+FindTagCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> FindTagCommand
+deactivate CommandResult
+
+FindTagCommand --> LogicManager : result
+deactivate FindTagCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
