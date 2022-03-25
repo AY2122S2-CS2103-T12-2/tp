@@ -94,5 +94,9 @@ public class PersonTest {
         // different tags -> returns false
         editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(ALICE.equals(editedAlice));
+
+        // different favourites -> returns false
+        editedAlice = new PersonBuilder(ALICE).withFavourite(String.valueOf(!ALICE.isFavourite())).build();
+        assertFalse(ALICE.equals(editedAlice));
     }
 }

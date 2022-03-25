@@ -11,13 +11,13 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.DeadlineList;
 
 /**
- * Parses input arguments and creates a new DeleteCommand object
+ * Parses input arguments and creates a new DeadlineCommand object
  */
 public class DeadlineCommandParser implements Parser<DeadlineCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the DeleteCommand
-     * and returns a DeleteCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the DeadlineCommand
+     * and returns a DeadlineCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeadlineCommand parse(String args) throws ParseException {

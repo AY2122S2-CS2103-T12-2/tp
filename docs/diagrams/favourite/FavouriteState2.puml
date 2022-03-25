@@ -1,0 +1,27 @@
+@startuml
+!include ../style.puml
+skinparam ClassFontColor #000000
+skinparam ClassBorderColor #000000
+
+title After execution
+package ContactState {
+    class PersonList as "__personList:FilteredPersonList__"
+    class NotFavourite as "__NOT_FAVOURITE:Favourite__"
+    class PersonFavourited as "__p3Favourited:Person__"
+    class P1 as "__p1:Person__"
+    class P2 as "__p2:Person__"
+    class IsFavourite as "__IS_FAVOURITE:Favourite__"
+}
+
+PersonList -> PersonFavourited
+PersonList -up-> P1
+PersonList -> P2
+PersonFavourited -right-> IsFavourite
+P1 -> NotFavourite
+P2 -right-> NotFavourite
+
+P1 -[hidden]-> P2
+P2 -[hidden]-> PersonFavourited
+NotFavourite -[hidden]-> IsFavourite
+
+@enduml

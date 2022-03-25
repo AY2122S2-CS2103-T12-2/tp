@@ -1,0 +1,49 @@
+@startuml
+!include Style.puml
+
+box <font color=black>Logic
+participant ":LogicManager" as LogicManager LOGIC_COLOR_T5
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR_T5
+participant ":HighImportanceCommandParser" as HighImportanceCommandParser LOGIC_COLOR_T5
+participant "h :HighImportanceCommand" as HighImportanceCommand LOGIC_COLOR_T5
+participant ":CommandResult" as CommandResult LOGIC_COLOR_T5
+
+-> LogicManager : execute("impt 1")
+activate LogicManager
+
+LogicManager -> AddressBookParser: parseCommand("impt 1")
+activate AddressBookParser
+
+create HighImportanceCommandParser
+AddressBookParser -> HighImportanceCommandParser ++
+
+HighImportanceCommandParser --> AddressBookParser --
+
+AddressBookParser -> HighImportanceCommandParser ++ : \nparse("1")
+
+create HighImportanceCommand
+HighImportanceCommandParser -> HighImportanceCommand ++
+
+HighImportanceCommand --> HighImportanceCommandParser -- : h
+HighImportanceCommandParser --> AddressBookParser -- : h
+destroy HighImportanceCommandParser
+
+AddressBookParser --> LogicManager -- : h
+LogicManager -> HighImportanceCommand ++ : execute()
+
+box <font color=black>Model MODEL_COLOR_T1
+participant "<font color=white>:Model" as model MODEL_COLOR_T4
+end box
+
+HighImportanceCommand -> model ++ : setPerson()
+model --> HighImportanceCommand
+deactivate model
+
+create CommandResult
+HighImportanceCommand -> CommandResult ++
+CommandResult --> HighImportanceCommand --
+
+HighImportanceCommand --> LogicManager
+<-- LogicManager
+
+@enduml

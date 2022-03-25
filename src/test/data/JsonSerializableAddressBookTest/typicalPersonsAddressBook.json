@@ -23,7 +23,7 @@
     } ],
     "notes" : [ ],
     "tagged" : [ "owesMoney", "friends" ],
-    "isFavourite" : "false"
+    "isFavourite" : "true"
   }, {
     "name" : "Carl Kurz",
     "phone" : "95352563",
@@ -47,7 +47,7 @@
     } ],
     "notes" : [ ],
     "tagged" : [ "friends" ],
-    "isFavourite" : "true"
+    "isFavourite" : "false"
   }, {
     "name" : "Elle Meyer",
     "phone" : "9482224",

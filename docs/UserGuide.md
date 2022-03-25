@@ -87,7 +87,7 @@ You can add a contact to the address book with the address as an optional field.
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [t/TAG]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A contact can have 0 or 1 address 
+A contact can have 0 or 1 address
 </div>
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A contact can have any number of tags (including 0)
@@ -264,17 +264,17 @@ the data of your previous d'Intérieur home folder.
 
 ## Command summary
 
-| Action         | Format, Examples                                                                                                                                                      |
-|----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**        | `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [t/TAG]…​` <br> e.g., `add n/Mary Jane p/12345678 e/maryJ@example.com a/Bukit Timah t/completed` |
-| **Clear**      | `clear`                                                                                                                                                               |
-| **Deadline**   | `deadline INDEX DATE`<br> e.g., `deadline 1 01/01/2022`                                                                                                               |
-| **Delete**     | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                   |
-| **Edit**       | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                           |
-| **Fav**        | `fav INDEX` <br> e.g., `fav 1`
-| **Favourites** | `favourites`
-| **Find**       | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-| **Find Tag**   | `findtag KEYWORD [MORE_KEYWORDS}` <br> e.g., `findtag Friends`|
-| **Help**       | `help`                                                                                                                                                                |
-| **List**       | `list`                                                                                                                                                                |
-| **Note**       | `note INDEX r/NOTES`<br> e.g. `note 2 r/loves green`                                                                                            |
+| Action         | Format, Examples                                                                                                                                                                                                                                                      |
+|----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**        | `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [t/TAG]…​` <br> e.g., `add n/Mary Jane p/12345678 e/maryJ@example.com a/Bukit Timah t/completed`                                                                                                                       |
+| **Clear**      | `clear`                                                                                                                                                                                                                                                               |
+| **Deadline**   | `deadline INDEX DATE`<br> e.g., `deadline 1 01/01/2022`                                                                                                                                                                                                               |
+| **Delete**     | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                                                                                                   |
+| **Edit**       | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                                                                                           |
+| **Fav**        | `fav INDEX` <br> e.g., `fav 1`                                                                                                                                                                                                                                        |
+| **Favourites** | `favourites`                                                                                                                                                                                                                                                          |
+| **Find**       | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                                                                                            |
+| **Find Tag**   | `findtag KEYWORD [MORE_KEYWORDS}` <br> e.g., `findtag Friends`                                                                                                                                                                                                        |
+| **Help**       | `help`                                                                                                                                                                                                                                                                |
+| **List**       | `list`                                                                                                                                                                                                                                                                |
+| **Note**       | `note INDEX r/NOTES`<br> e.g. `note 2 r/loves green`                                                                                                                                                                                                   |

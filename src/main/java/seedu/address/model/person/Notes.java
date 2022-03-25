@@ -57,11 +57,16 @@ public class Notes {
     }
 
     /**
-     * Appends the new note to this notes list.
+     * Creates a new Notes that has this Notes' contents and the given
+     * new note appended.
      * @param newNote new note to be added
+     * @return new Notes
      */
-    public void updateNotes(String newNote) {
-        this.value.add(newNote);
+    public Notes updateNotes(String newNote) {
+        Notes newNotes = new Notes();
+        newNotes.value.addAll(this.value);
+        newNotes.value.add(newNote);
+        return newNotes;
     }
 
     /**

@@ -1,0 +1,79 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":FavouriteCommandParser" as FavouriteCommandParser LOGIC_COLOR
+participant "f:FavouriteCommand" as FavouriteCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "pl:List" as PersonList MODEL_COLOR
+end box
+[-> LogicManager : execute(fav 3)
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand(fav 3)
+activate AddressBookParser
+
+create FavouriteCommandParser
+AddressBookParser -> FavouriteCommandParser
+activate FavouriteCommandParser
+
+FavouriteCommandParser --> AddressBookParser
+deactivate FavouriteCommandParser
+
+AddressBookParser -> FavouriteCommandParser : parse(3)
+activate FavouriteCommandParser
+
+create FavouriteCommand
+FavouriteCommandParser -> FavouriteCommand
+activate FavouriteCommand
+
+FavouriteCommand --> FavouriteCommandParser
+deactivate FavouriteCommand
+
+FavouriteCommandParser --> AddressBookParser
+deactivate FavouriteCommandParser
+
+AddressBookParser --> LogicManager : f
+deactivate AddressBookParser
+
+destroy FavouriteCommandParser
+
+LogicManager -> FavouriteCommand : execute()
+activate FavouriteCommand
+
+FavouriteCommand -> Model : getFilteredPersonList()
+activate Model
+
+Model --> FavouriteCommand : pl
+deactivate Model
+
+FavouriteCommand -> PersonList : get(2)
+activate PersonList
+
+PersonList --> FavouriteCommand : targetPerson
+deactivate PersonList
+
+FavouriteCommand -> FavouriteCommand : createFavouritePerson(targetPerson, IS_FAVOURITE)
+activate FavouriteCommand
+
+FavouriteCommand --> FavouriteCommand : favouritedPerson
+deactivate FavouriteCommand
+
+FavouriteCommand -> Model : setPerson(targetPerson, favouritedPerson)
+activate Model
+
+Model --> FavouriteCommand
+deactivate Model
+
+FavouriteCommand --> LogicManager
+deactivate FavouriteCommand
+
+[<--LogicManager
+deactivate LogicManager
+destroy FavouriteCommand
+@enduml

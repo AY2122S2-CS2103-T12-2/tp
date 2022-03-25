@@ -1,0 +1,92 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":DeadlineCommandParser" as DeadlineCommandParser LOGIC_COLOR
+participant "command:DeadlineCommand" as DeadlineCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("deadline 1 /d return book 1/1/2023")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("deadline 1 /d return book 1/1/2023")
+activate AddressBookParser
+
+create DeadlineCommandParser
+AddressBookParser -> DeadlineCommandParser
+activate DeadlineCommandParser
+
+DeadlineCommandParser --> AddressBookParser
+deactivate DeadlineCommandParser
+
+AddressBookParser -> DeadlineCommandParser : parse("1 /d return book 1/1/2023")
+activate DeadlineCommandParser
+
+DeadlineCommandParser -> ParserUtil : parseIndex("1")
+activate ParserUtil
+
+ParserUtil --> DeadlineCommandParser : index
+deactivate ParserUtil
+
+DeadlineCommandParser -> ParserUtil : parseDeadlines([" return book 1/1/2023"])
+activate ParserUtil
+
+ParserUtil --> DeadlineCommandParser : deadlines
+deactivate ParserUtil
+
+create DeadlineCommand
+DeadlineCommandParser -> DeadlineCommand : DeadlineCommand(index, deadlines)
+activate DeadlineCommand
+
+DeadlineCommand --> DeadlineCommandParser : command
+deactivate DeadlineCommand
+
+DeadlineCommandParser --> AddressBookParser : command
+deactivate DeadlineCommandParser
+
+DeadlineCommandParser -[hidden]-> AddressBookParser
+destroy DeadlineCommandParser
+
+AddressBookParser --> LogicManager : command
+deactivate AddressBookParser
+
+LogicManager -> DeadlineCommand : execute(model)
+activate DeadlineCommand
+
+DeadlineCommand -> Model : getFilteredPersonList()
+activate Model
+
+Model --> DeadlineCommand : lastShownList
+deactivate Model
+
+DeadlineCommand -> Model : setPerson(personToAddDeadline, editedPerson)
+activate Model
+
+deactivate Model
+
+DeadlineCommand -> Model : updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS)
+activate Model
+
+deactivate Model
+
+create CommandResult
+DeadlineCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DeadlineCommand
+deactivate CommandResult
+
+DeadlineCommand --> LogicManager : CommandResult(feedbackToUser)
+deactivate DeadlineCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

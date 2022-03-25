@@ -1,0 +1,15 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+package List<Person> {
+Class "Person1" as Person1
+Class "Person2" as Person2
+Class "Person3" as Person3
+}
+
+Person1 - Person2
+Person2 - Person3
+@enduml

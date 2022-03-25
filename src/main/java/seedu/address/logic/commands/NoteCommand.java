@@ -86,8 +86,8 @@ public class NoteCommand extends Command {
      * @return new Person with note added
      */
     private static Person updateNotes(Person personToEdit, String note) {
-        Notes newNotes = Notes.loadNotesFromList(personToEdit.getNotes().value);
-        newNotes.updateNotes(note);
+        Notes oldNotes = personToEdit.getNotes();
+        Notes newNotes = oldNotes.updateNotes(note);
         return new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
                 personToEdit.getAddress(), personToEdit.getDeadlines(), newNotes,
                 personToEdit.getTags(), personToEdit.getFavouriteStatus());

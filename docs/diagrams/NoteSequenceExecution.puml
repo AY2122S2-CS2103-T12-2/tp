@@ -1,0 +1,52 @@
+@startuml
+!include style.puml
+
+Box Logic LOGIC_COLOR_T1
+participant ":NoteCommand" as NoteCommand LOGIC_COLOR
+end box
+
+Box Model MODEL_COLOR_T1
+participant "model:Model" as Model MODEL_COLOR
+participant "personToEdit:Person" as OldPerson MODEL_COLOR
+participant "oldNotes:Notes" as OldNotes MODEL_COLOR
+participant "newNotes:Notes" as NewNotes MODEL_COLOR
+participant "editedPerson:Person" as NewPerson MODEL_COLOR
+end box
+
+[-> NoteCommand : execute(model)
+activate NoteCommand
+
+NoteCommand -> Model : getFilteredPersonList()
+
+NoteCommand -> NoteCommand : updateNotes(personToEdit, note)
+activate NoteCommand
+
+NoteCommand -> OldPerson : getNotes()
+
+NoteCommand -> OldNotes : updateNotes(note)
+activate OldNotes
+create NewNotes
+OldNotes -> NewNotes
+activate NewNotes
+NewNotes -> OldNotes
+deactivate NewNotes
+OldNotes -> NoteCommand : newNotes
+deactivate OldNotes
+'Hidden arrow to move destroy marker lower'
+OldNotes -[hidden]-> OldNotes
+destroy OldNotes
+
+create NewPerson
+NoteCommand -> NewPerson
+activate NewPerson
+NewPerson -> NoteCommand
+deactivate NewPerson
+NoteCommand -> NoteCommand : editedPerson
+deactivate NoteCommand
+
+NoteCommand -> Model : setPerson(personToEdit, editedPerson)
+
+Model -> OldPerson
+destroy OldPerson
+
+@enduml

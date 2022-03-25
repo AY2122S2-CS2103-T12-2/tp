@@ -28,6 +28,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -135,7 +136,12 @@ public class ParserUtil {
     public static DeadlineList parseDeadlines(Collection<String> deadlines) throws ParseException {
         requireNonNull(deadlines);
         ArrayList<Deadline> deadlineList = new ArrayList<>();
-        for (String deadline:deadlines) {
+
+        if (deadlines.size() < 1) {
+            deadlineList.add(new Deadline());
+        }
+
+        for (String deadline : deadlines) {
             deadlineList.add(parseDeadline(deadline));
         }
         return new DeadlineList(deadlineList);
